@@ -29,59 +29,82 @@ Aşağıda istenilen sonuçlara ulaşabilmek için gerekli SQL sorgularını yaz
 
 	1) ÖRNEK SORU: Yazar tablosunu KEMAL UYUMAZ isimli yazarı ekleyin.
 	
-
+		insert into yazar (yazarad,yazarsoyad)
+			values ("Kemal","Uyumaz");
 	
 	2) Biyografi türünü tür tablosuna ekleyiniz.
 	
+		insert into tur(turadi) values ("Biyografi")
 	
 	3) 10A sınıfı olan ÇAĞLAR ÜZÜMCÜ isimli erkek, sınıfı 9B olan LEYLA ALAGÖZ isimli kız ve sınıfı 11C olan Ayşe Bektaş isimli kız öğrencileri tek sorguda ekleyin. 
 	
+		insert into ogrenci (sinif,ograd,ogrsoyad,cinsiyet)
+			values ("10A","Çağlar","Üzümcü","E"),
+			("9B","Leyla","Alagöz","K"),
+			("11C","Ayşe","Bektaş","K");
 	
 	4) Öğrenci tablosundaki rastgele bir öğrenciyi yazarlar tablosuna yazar olarak ekleyiniz.
 	
+	insert into yazar (yazarad,yazarsoyad)
+            (select ograd,ogrsoyad from ogrenci order by rand() limit 1);
 	
 	5) Öğrenci numarası 10 ile 30 arasındaki öğrencileri yazar olarak ekleyiniz.
 	
+		insert into yazar (yazarad,yazarsoyad)
+            (select ograd,ogrsoyad from ogrenci
+            where ogrno between 10 and 30);
 	
 	6) Nurettin Belek isimli yazarı ekleyip yazar numarasını yazdırınız.
 	(Not: Otomatik arttırmada son arttırılan değer @@IDENTITY değişkeni içinde tutulur.)
 	
+		insert into yazar (yazarad,yazarsoyad) values ("Nurettin","Belek");
+			select @@IDENTITY
 	
 	7) 10B sınıfındaki öğrenci numarası 3 olan öğrenciyi 10C sınıfına geçirin.
 	
+		update ogrenci set sinif="10C" where ogrno=3;
 	
 	8) 9A sınıfındaki tüm öğrencileri 10A sınıfına aktarın
 	
-	
+		update ogrenci set sinif="10A" where sinif="9A";
+
 	9) Tüm öğrencilerin puanını 5 puan arttırın.
 	
-	
+		update ogrenci set puan=puan+5 where puan is not null; select * from ogrenci;
+
 	10) 25 numaralı yazarı silin.
 
+	delete from yazar where yazarno=25 ;
 
 	11) Doğum tarihi null olan öğrencileri listeleyin. (insert sorgusu ile girilen 3 öğrenci listelenecektir)
 	
+	select * from ogrenci where dtaarih is null
 	
 	12) Doğum tarihi null olan öğrencileri silin. 
 	
-	
+		delete from ogrenci where dtarih is null;
+
 	13) Kitap tablosunda adı a ile başlayan kitapların puanlarını 2 artırın.
 	
-	
+		update kitap set puan=puan+2 where kitapadi like "A%";
+
 	14) Kişisel Gelişim isimli bir tür oluşturun.
 	
+		insert into tur (turad) values ("Kişisel gelişim)
 	
 	15) Kitap tablosundaki Başarı Rehberi kitabının türünü bu tür ile değiştirin.
 	
 	
 	16) Öğrenci tablosunu kontrol etmek amaçlı tüm öğrencileri görüntüleyen "ogrencilistesi" adında bir prosedür oluşturun.
 	
+
 	
 	17) Öğrenci tablosuna yeni öğrenci eklemek için "ekle" adında bir prosedür oluşturun.
 	
 	
 	18) Öğrenci noya göre öğrenci silebilmeyi sağlayan "sil" adında bir prosedür oluşturun.
 	
+		
 	
 	19) Öğrenci numarasını kullanarak kolay bir biçimde öğrencinin sınıfını değiştirebileceğimiz bir prosedür oluşturun.
 	
